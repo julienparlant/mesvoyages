@@ -68,6 +68,16 @@ class Visite
     {
         return $this->datecreation;
     }
+    
+    public function getDatecreationString(): string
+{
+    if ($this->datecreation === null) {
+        return '';
+    }
+
+    return $this->datecreation->format('d/m/Y');
+}
+
 
     public function setDatecreation(?\DateTime $datecreation): static
     {
