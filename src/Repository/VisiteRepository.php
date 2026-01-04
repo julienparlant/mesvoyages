@@ -11,6 +11,10 @@ use Doctrine\Persistence\ManagerRegistry;
  */
 class VisiteRepository extends ServiceEntityRepository {
 
+    /**
+     * 
+     * @param ManagerRegistry $registry
+     */
     public function __construct(ManagerRegistry $registry) {
         parent::__construct($registry, Visite::class);
     }
@@ -50,6 +54,17 @@ class VisiteRepository extends ServiceEntityRepository {
                             ->getQuery()
                             ->getResult();
         }
+    }
+
+    /**
+     * Ajoute ou met à jour une visite.
+     *
+     * @param Visite $visite
+     */
+    public function add(Visite $visite): void {
+        $entityManager = $this->getEntityManager();
+        $entityManager->persist($visite);
+        $entityManager->flush();
     }
 
     /**
