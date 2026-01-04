@@ -14,7 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
  * @author Julien
  */
 class VoyagesController extends AbstractController {
-    
+
     private VisiteRepository $repository;
 
     #[Route('/voyages', name: 'voyages')]
@@ -34,11 +34,19 @@ class VoyagesController extends AbstractController {
     }
 
     #[Route('/voyages/recherche/{champ}', name: 'voyages.findallequal')]
-    public function findAllEqual($champ, Request $request): Response{
+    public function findAllEqual($champ, Request $request): Response {
         $valeur = $request->get("recherche");
         $visites = $this->repository->findByEqualValue($champ, $valeur);
         return $this->render("pages/voyages.html.twig", [
-            'visites' => $visites
+                    'visites' => $visites
+        ]);
+    }
+
+    #[Route('/voyages/voyage/{id}', name: 'voyages.showone')]
+    public function showOne($id): Response {
+        $visite = $this->repository->find($id);
+        return $this->render("pages/voyage.html.twig", [
+                    'visite' => $visite
         ]);
     }
 
